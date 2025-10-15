@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Container } from '@mui/material';
+import { Box } from '@mui/material';
 import { Header } from './Header';
 import { Navigation } from './Navigation';
 
@@ -13,8 +13,8 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
       <Header />
       <Box sx={{ display: 'flex', flex: 1 }}>
         <Navigation />
-        <Box component="main" sx={{ flexGrow: 1, p: 3, overflow: 'auto' }}>
-          <Container maxWidth="xl">{children}</Container>
+        <Box component="main" sx={{ flexGrow: 1, p: 3, overflow: 'auto', width: '100%' }}>
+          {children}
         </Box>
       </Box>
     </Box>
