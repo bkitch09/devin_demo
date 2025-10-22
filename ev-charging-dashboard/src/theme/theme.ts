@@ -4,33 +4,39 @@ export const lightTheme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#1976d2',
-      light: '#42a5f5',
-      dark: '#1565c0',
+      main: '#67BD45', // Lighter green
+      light: '#8FD182',
+      dark: '#3D8B29',
+      contrastText: '#FFFFFF',
     },
     secondary: {
-      main: '#9c27b0',
-      light: '#ba68c8',
-      dark: '#7b1fa2',
+      main: '#0096DB', // Brighter blue
+      light: '#4FC3F7',
+      dark: '#0069A3',
+      contrastText: '#FFFFFF',
     },
     success: {
-      main: '#2e7d32',
-      light: '#4caf50',
-      dark: '#1b5e20',
+      main: '#2E7D32',
+      light: '#4CAF50',
+      dark: '#1B5E20',
     },
     warning: {
-      main: '#ed6c02',
-      light: '#ff9800',
-      dark: '#e65100',
+      main: '#ED6C02',
+      light: '#FF9800',
+      dark: '#E65100',
     },
     error: {
-      main: '#d32f2f',
-      light: '#ef5350',
-      dark: '#c62828',
+      main: '#D32F2F',
+      light: '#EF5350',
+      dark: '#C62828',
     },
     background: {
-      default: '#f5f5f5',
-      paper: '#ffffff',
+      default: '#F8F9FA',
+      paper: '#FFFFFF',
+    },
+    text: {
+      primary: '#212529',
+      secondary: '#495057',
     },
   },
   typography: {
@@ -83,19 +89,21 @@ export const darkTheme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: '#90caf9',
-      light: '#e3f2fd',
-      dark: '#42a5f5',
+      main: '#8FD182', // Lighter green for dark mode
+      light: '#B1E1A7',
+      dark: '#67BD45', // Original light green
+      contrastText: '#000000',
     },
     secondary: {
-      main: '#ce93d8',
-      light: '#f3e5f5',
-      dark: '#ab47bc',
+      main: '#4FC3F7', // Lighter blue for dark mode
+      light: '#81D4FA',
+      dark: '#0096DB', // Original bright blue
+      contrastText: '#000000',
     },
     success: {
-      main: '#66bb6a',
-      light: '#81c784',
-      dark: '#388e3c',
+      main: '#66BB6A',
+      light: '#81C784',
+      dark: '#388E3C',
     },
     warning: {
       main: '#ffa726',

@@ -7,7 +7,7 @@ export const Header: React.FC = () => {
   const { mode, toggleTheme } = useTheme();
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ width: '100vw' }}>
       <Toolbar>
         <ElectricBolt sx={{ mr: 2 }} />
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
