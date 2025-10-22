@@ -8,17 +8,22 @@ import {
   MenuItem,
   SelectChangeEvent,
   Grid,
+  Fab,
+  Tooltip,
 } from '@mui/material';
+import { Chat } from '@mui/icons-material';
 import { useStations } from '../hooks/useStations';
 import { useDiagnostics, useTroubleshootingAction } from '../hooks/useTroubleshooting';
 import { LoadingSpinner } from '../components/common/LoadingSpinner';
 import { ErrorAlert } from '../components/common/ErrorAlert';
 import { DiagnosticPanel } from '../components/troubleshooting/DiagnosticPanel';
 import { ActionPanel } from '../components/troubleshooting/ActionPanel';
+import { ChatInterface } from '../components/chatbot/ChatInterface';
 import { TroubleshootingAction } from '../types/troubleshooting';
 
 export const Troubleshooting: React.FC = () => {
   const [selectedStationId, setSelectedStationId] = useState<string>('');
+  const [chatOpen, setChatOpen] = useState(false);
   const { data: stations, isLoading: stationsLoading } = useStations();
   const { data: diagnostics, isLoading: diagnosticsLoading } = useDiagnostics(selectedStationId);
   const { mutate: executeAction, isPending, data: actionResult } = useTroubleshootingAction();
@@ -37,8 +42,10 @@ export const Troubleshooting: React.FC = () => {
     return <LoadingSpinner />;
   }
 
+  const selectedStation = stations?.find(s => s.id === selectedStationId);
+
   return (
-    <Box>
+    <Box sx={{ position: 'relative' }}>
       <Typography variant="h4" gutterBottom>
         Station Troubleshooting
       </Typography>
@@ -81,6 +88,31 @@ export const Troubleshooting: React.FC = () => {
           </Grid>
         </Grid>
       )}
+
+      {selectedStationId && (
+        <Tooltip title="Open AI Troubleshooting Assistant" placement="left">
+          <Fab
+            color="primary"
+            aria-label="chat"
+            onClick={() => setChatOpen(true)}
+            sx={{
+              position: 'fixed',
+              bottom: 24,
+              right: 24,
+              zIndex: 1000,
+            }}
+          >
+            <Chat />
+          </Fab>
+        </Tooltip>
+      )}
+
+      <ChatInterface
+        open={chatOpen}
+        onClose={() => setChatOpen(false)}
+        station={selectedStation}
+        diagnostics={diagnostics}
+      />
     </Box>
   );
 };

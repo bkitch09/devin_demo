@@ -13,7 +13,10 @@ export const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
       <Header />
       <Box sx={{ display: 'flex', flex: 1, width: '100%' }}>
         <Navigation />
-        <Box component="main" sx={{ flexGrow: 1, p: 3, overflow: 'auto', width: '100%', maxWidth: '100%' }}>
+        <Box
+          component="main"
+          sx={{ flexGrow: 1, p: 3, overflow: 'auto', width: '100%', maxWidth: '100%' }}
+        >
           {children}
         </Box>
       </Box>
