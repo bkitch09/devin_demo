@@ -7,10 +7,6 @@ import {
   Button,
   TextField,
   Grid,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
   Alert,
   CircularProgress,
 } from '@mui/material';
@@ -34,9 +30,9 @@ const initialFormState: CreateStationRequest = {
       lng: 0,
     },
   },
-  powerCapacity: 50,
-  hardwareVersion: '',
-  firmwareVersion: '',
+  amps: 0,
+  volts: 0,
+  power: 0,
 };
 
 export const AddStationDialog: React.FC<AddStationDialogProps> = ({ open, onClose }) => {
@@ -62,11 +58,14 @@ export const AddStationDialog: React.FC<AddStationDialogProps> = ({ open, onClos
     if (!formData.location.zipCode.trim()) {
       newErrors.zipCode = 'ZIP code is required';
     }
-    if (!formData.hardwareVersion.trim()) {
-      newErrors.hardwareVersion = 'Hardware version is required';
+    if (formData.amps <= 0) {
+      newErrors.amps = 'Amps must be greater than 0';
     }
-    if (!formData.firmwareVersion.trim()) {
-      newErrors.firmwareVersion = 'Firmware version is required';
+    if (formData.volts <= 0) {
+      newErrors.volts = 'Volts must be greater than 0';
+    }
+    if (formData.power <= 0) {
+      newErrors.power = 'Power must be greater than 0';
     }
 
     setErrors(newErrors);
@@ -215,44 +214,44 @@ export const AddStationDialog: React.FC<AddStationDialogProps> = ({ open, onClos
           </Grid>
 
           <Grid item xs={12} sm={4}>
-            <FormControl fullWidth disabled={isPending}>
-              <InputLabel>Power Capacity</InputLabel>
-              <Select
-                value={formData.powerCapacity}
-                label="Power Capacity"
-                onChange={e => setFormData(prev => ({ ...prev, powerCapacity: e.target.value as number }))}
-              >
-                <MenuItem value={50}>50 kW</MenuItem>
-                <MenuItem value={100}>100 kW</MenuItem>
-                <MenuItem value={150}>150 kW</MenuItem>
-                <MenuItem value={250}>250 kW</MenuItem>
-              </Select>
-            </FormControl>
-          </Grid>
-
-          <Grid item xs={12} sm={4}>
             <TextField
               fullWidth
-              label="Hardware Version"
-              value={formData.hardwareVersion}
-              onChange={e => setFormData(prev => ({ ...prev, hardwareVersion: e.target.value }))}
-              error={!!errors.hardwareVersion}
-              helperText={errors.hardwareVersion}
+              label="Amps"
+              type="number"
+              value={formData.amps}
+              onChange={e => setFormData(prev => ({ ...prev, amps: parseFloat(e.target.value) || 0 }))}
+              error={!!errors.amps}
+              helperText={errors.amps}
               disabled={isPending}
-              placeholder="e.g., HW-2.5"
+              inputProps={{ min: 0, step: 'any' }}
             />
           </Grid>
 
           <Grid item xs={12} sm={4}>
             <TextField
               fullWidth
-              label="Firmware Version"
-              value={formData.firmwareVersion}
-              onChange={e => setFormData(prev => ({ ...prev, firmwareVersion: e.target.value }))}
-              error={!!errors.firmwareVersion}
-              helperText={errors.firmwareVersion}
+              label="Volts"
+              type="number"
+              value={formData.volts}
+              onChange={e => setFormData(prev => ({ ...prev, volts: parseFloat(e.target.value) || 0 }))}
+              error={!!errors.volts}
+              helperText={errors.volts}
               disabled={isPending}
-              placeholder="e.g., FW-3.10"
+              inputProps={{ min: 0, step: 'any' }}
+            />
+          </Grid>
+
+          <Grid item xs={12} sm={4}>
+            <TextField
+              fullWidth
+              label="Power (kW)"
+              type="number"
+              value={formData.power}
+              onChange={e => setFormData(prev => ({ ...prev, power: parseFloat(e.target.value) || 0 }))}
+              error={!!errors.power}
+              helperText={errors.power}
+              disabled={isPending}
+              inputProps={{ min: 0, step: 'any' }}
             />
           </Grid>
         </Grid>

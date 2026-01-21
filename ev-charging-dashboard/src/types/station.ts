@@ -48,7 +48,7 @@ export interface StationFilters {
 export interface CreateStationRequest {
   name: string;
   location: Location;
-  powerCapacity: number;
-  hardwareVersion: string;
-  firmwareVersion: string;
+  amps: number;
+  volts: number;
+  power: number;
 }

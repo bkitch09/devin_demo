@@ -31,12 +31,12 @@ export const handlers = [
       name: body.name,
       location: body.location,
       status: StationStatus.MAINTENANCE,
-      powerCapacity: body.powerCapacity,
+      powerCapacity: body.power,
       currentOutput: 0,
       session: null,
       lastHeartbeat: new Date().toISOString(),
-      hardwareVersion: body.hardwareVersion,
-      firmwareVersion: body.firmwareVersion,
+      hardwareVersion: `HW-${Math.floor(Math.random() * 3) + 1}.${Math.floor(Math.random() * 10)}`,
+      firmwareVersion: `FW-${Math.floor(Math.random() * 2) + 2}.${Math.floor(Math.random() * 20)}`,
     };
 
     mockStations.push(newStation);
