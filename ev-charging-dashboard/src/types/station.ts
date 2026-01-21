@@ -44,3 +44,11 @@ export interface StationFilters {
   sortBy?: 'name' | 'status' | 'location' | 'lastHeartbeat';
   sortOrder?: 'asc' | 'desc';
 }
+
+export interface CreateStationRequest {
+  name: string;
+  location: Location;
+  powerCapacity: number;
+  hardwareVersion: string;
+  firmwareVersion: string;
+}

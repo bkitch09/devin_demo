@@ -3,6 +3,7 @@ import { mockStations } from '../data/stationData';
 import { generateDiagnosticData } from '../data/troubleshootingData';
 import { generateNetworkStatistics } from '../data/statisticsData';
 import { ActionResult, TroubleshootingAction } from '../../types/troubleshooting';
+import { CreateStationRequest, Station, StationStatus } from '../../types/station';
 
 const BASE_URL = '/api';
 
@@ -20,6 +21,27 @@ export const handlers = [
     }
 
     return HttpResponse.json(station);
+  }),
+
+  http.post(`${BASE_URL}/stations`, async ({ request }) => {
+    const body = (await request.json()) as CreateStationRequest;
+
+    const newStation: Station = {
+      id: `station-${mockStations.length + 1}`,
+      name: body.name,
+      location: body.location,
+      status: StationStatus.MAINTENANCE,
+      powerCapacity: body.powerCapacity,
+      currentOutput: 0,
+      session: null,
+      lastHeartbeat: new Date().toISOString(),
+      hardwareVersion: body.hardwareVersion,
+      firmwareVersion: body.firmwareVersion,
+    };
+
+    mockStations.push(newStation);
+
+    return HttpResponse.json(newStation, { status: 201 });
   }),
 
   http.get(`${BASE_URL}/stations/:id/diagnostics`, ({ params }) => {
