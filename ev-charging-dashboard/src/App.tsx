@@ -6,6 +6,7 @@ import { Dashboard } from './pages/Dashboard';
 import { StationStatus } from './pages/StationStatus';
 import { Troubleshooting } from './pages/Troubleshooting';
 import { Statistics } from './pages/Statistics';
+import { Drivers } from './pages/Drivers';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -25,6 +26,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/stations" element={<StationStatus />} />
+              <Route path="/drivers" element={<Drivers />} />
               <Route path="/troubleshooting" element={<Troubleshooting />} />
               <Route path="/statistics" element={<Statistics />} />
             </Routes>
