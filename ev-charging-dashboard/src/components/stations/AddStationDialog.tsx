@@ -35,6 +35,24 @@ const initialFormState: CreateStationRequest = {
   power: 0,
 };
 
+const US_STATE_ABBREVIATIONS = [
+  'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA',
+  'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD',
+  'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ',
+  'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC',
+  'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY',
+  'DC', 'PR', 'VI', 'GU', 'AS', 'MP',
+];
+
+const isValidUSState = (state: string): boolean => {
+  return US_STATE_ABBREVIATIONS.includes(state.toUpperCase());
+};
+
+const isValidUSZipCode = (zipCode: string): boolean => {
+  const zipRegex = /^\d{5}(-\d{4})?$/;
+  return zipRegex.test(zipCode);
+};
+
 export const AddStationDialog: React.FC<AddStationDialogProps> = ({ open, onClose }) => {
   const [formData, setFormData] = useState<CreateStationRequest>(initialFormState);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -54,9 +72,13 @@ export const AddStationDialog: React.FC<AddStationDialogProps> = ({ open, onClos
     }
     if (!formData.location.state.trim()) {
       newErrors.state = 'State is required';
+    } else if (!isValidUSState(formData.location.state)) {
+      newErrors.state = 'Please enter a valid 2-letter US state abbreviation (e.g., CA, NY, TX)';
     }
     if (!formData.location.zipCode.trim()) {
       newErrors.zipCode = 'ZIP code is required';
+    } else if (!isValidUSZipCode(formData.location.zipCode)) {
+      newErrors.zipCode = 'Please enter a valid US ZIP code (e.g., 12345 or 12345-6789)';
     }
     if (formData.amps <= 0) {
       newErrors.amps = 'Amps must be greater than 0';
